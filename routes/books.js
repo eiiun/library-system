@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const { select, insert, update, remove } = require('../config/db');
 
+// 管理员验证中间件
+function requireAdmin(req, res, next) {
+    const username = req.headers['x-username'];
+    const adminUsers = (process.env.ADMIN_USERS || 'admin').split(',').map(u => u.trim());
+    if (!username || !adminUsers.includes(username)) {
+        return res.status(403).json({ success: false, message: '权限不足，仅管理员可操作' });
+    }
+    next();
+}
+
 // 获取所有图书
 router.get('/', async (req, res) => {
     try {
@@ -99,8 +109,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// 添加图书
-router.post('/', async (req, res) => {
+// 添加图书（仅管理员）
+router.post('/', requireAdmin, async (req, res) => {
     try {
         const { title, author, isbn, publisher, publish_date, category, total_copies } = req.body;
         
@@ -138,8 +148,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-// 修改图书
-router.put('/:id', async (req, res) => {
+// 修改图书（仅管理员）
+router.put('/:id', requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         const { title, author, isbn, publisher, publish_date, category, total_copies } = req.body;
@@ -167,8 +177,8 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// 删除图书
-router.delete('/:id', async (req, res) => {
+// 删除图书（仅管理员）
+router.delete('/:id', requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         
