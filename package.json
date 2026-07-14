@@ -4,7 +4,7 @@
   "description": "图书管理系统后端API",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "cd backend && node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [],
