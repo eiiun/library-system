@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+    "engines": {
+    "node": ">=22.0.0"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.2",
     "body-parser": "^2.3.0",
