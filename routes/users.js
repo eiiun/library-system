@@ -72,10 +72,14 @@ router.post('/login', async (req, res) => {
             });
         }
         
+        // 判断是否为管理员
+        const adminUsers = (process.env.ADMIN_USERS || 'admin').split(',').map(u => u.trim());
+        const isAdmin = adminUsers.includes(users[0].username);
+
         res.json({
             success: true,
             message: '登录成功',
-            data: users[0]
+            data: { ...users[0], is_admin: isAdmin }
         });
     } catch (error) {
         res.status(500).json({
