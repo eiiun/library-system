@@ -6,6 +6,12 @@
       "use": "@vercel/static"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://library-system-production-55cc.up.railway.app/api/$1"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",

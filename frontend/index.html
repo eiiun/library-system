@@ -565,8 +565,8 @@
             // 本地开发环境
             API_BASE = 'http://localhost:3000/api';
         } else {
-            // 生产环境（Vercel 部署）→ 连接 Railway 后端
-            API_BASE = 'https://library-system-production-55cc.up.railway.app/api';
+            // 生产环境（Vercel 部署）→ 通过 Vercel rewrite 代理到 Railway 后端
+            API_BASE = '/api';
         }
 
         // 也支持通过 URL 参数手动指定，如 ?api=https://xxx.railway.app/api
@@ -1368,4 +1368,3 @@
     </script>
 </body>
 </html>
-
